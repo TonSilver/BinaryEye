@@ -221,4 +221,6 @@
 	<string name="scheme">Scheme</string>
 	<string name="host">Host</string>
 	<string name="query">Query</string>
+	<string name="shortcut_added">Ярлык добавлен на рабочий стол</string>
+	<string name="add_shortcut">Добавить ярлык</string>
 </resources>

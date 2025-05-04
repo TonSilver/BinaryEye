@@ -1,5 +1,6 @@
 package de.markusfisch.android.binaryeye.fragment
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -55,6 +56,7 @@ import de.markusfisch.android.binaryeye.io.askForFileName
 import de.markusfisch.android.binaryeye.io.toSaveResult
 import de.markusfisch.android.binaryeye.io.writeExternalFile
 import de.markusfisch.android.binaryeye.net.createEncodeDeeplink
+import de.markusfisch.android.binaryeye.os.addShortcutToShowEncode
 import de.markusfisch.android.binaryeye.view.hideSoftKeyboard
 import de.markusfisch.android.binaryeye.view.setPaddingFromWindowInsets
 import de.markusfisch.android.binaryeye.widget.toast
@@ -480,6 +482,11 @@ class DecodeFragment : Fragment() {
 				true
 			}
 
+			R.id.add_shortcut -> {
+				addShortcut()
+				true
+			}
+
 			R.id.share -> {
 				context?.apply {
 					shareText(textOrHex())
@@ -528,6 +535,14 @@ class DecodeFragment : Fragment() {
 	}
 
 	private fun deeplinkToCopy() = createEncodeDeeplink(
+		format = format,
+		content = textOrHex(),
+		execute = false,
+		external = true,
+	)
+
+	private fun addShortcut() = addShortcutToShowEncode(
+		context = activity,
 		format = format,
 		content = textOrHex(),
 	)

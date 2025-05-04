@@ -24,6 +24,11 @@
 		android:icon="@drawable/ic_action_link"
 		material:showAsAction="ifRoom"/>
 	<item
+		android:id="@+id/add_shortcut"
+		android:title="@string/add_shortcut"
+		android:icon="@drawable/ic_action_shortcut"
+		material:showAsAction="ifRoom"/>
+	<item
 		android:id="@+id/share"
 		android:title="@string/share"
 		android:icon="@drawable/ic_action_share"

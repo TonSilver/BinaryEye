@@ -57,19 +57,19 @@ class BinaryEyeDeeplinkTest {
         // Basic test
         assertEquals(
             "https://markusfisch.de/encode?format=QR_CODE&content=test",
-            createEncodeDeeplink("QR_CODE", "test")
+            createEncodeDeeplink(format = "QR_CODE", content = "test", external = true)
         )
         
         // Test with special characters in content
         assertEquals(
             "https://markusfisch.de/encode?format=QR_CODE&content=test%20with%20spaces",
-            createEncodeDeeplink("QR_CODE", "test with spaces")
+            createEncodeDeeplink(format = "QR_CODE", content = "test with spaces", external = true)
         )
         
         // Test with different barcode format
         assertEquals(
             "https://markusfisch.de/encode?format=CODE_128&content=123456",
-            createEncodeDeeplink("CODE_128", "123456")
+            createEncodeDeeplink(format = "CODE_128", content = "123456", external = true)
         )
     }
 }

@@ -3,8 +3,11 @@ package de.markusfisch.android.binaryeye.fragment
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
+import android.content.UriPermission
 import android.graphics.Bitmap
 import android.graphics.Matrix
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -19,6 +22,7 @@ import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import de.markusfisch.android.binaryeye.R
+import de.markusfisch.android.binaryeye.activity.MainActivity
 import de.markusfisch.android.binaryeye.app.db
 import de.markusfisch.android.binaryeye.app.hasWritePermission
 import de.markusfisch.android.binaryeye.app.prefs
@@ -34,6 +38,7 @@ import de.markusfisch.android.binaryeye.io.addSuffixIfNotGiven
 import de.markusfisch.android.binaryeye.io.toSaveResult
 import de.markusfisch.android.binaryeye.io.writeExternalFile
 import de.markusfisch.android.binaryeye.net.createEncodeDeeplink
+import de.markusfisch.android.binaryeye.os.addShortcutToShowEncode
 import de.markusfisch.android.binaryeye.os.getScreenBrightness
 import de.markusfisch.android.binaryeye.os.setScreenBrightness
 import de.markusfisch.android.binaryeye.view.doOnApplyWindowInsets
@@ -231,6 +236,11 @@ class BarcodeFragment : Fragment() {
 				true
 			}
 
+			R.id.add_shortcut -> {
+				addShortcut()
+				true
+			}
+
 			R.id.export_to_file -> {
 				context.pickFileType(R.string.export_as) { fileType ->
 					when (fileType) {
@@ -268,6 +278,14 @@ class BarcodeFragment : Fragment() {
 	}
 
 	private fun deeplinkToCopy() = createEncodeDeeplink(
+		format = barcode.format.name,
+		content = barcode.textOrHex(),
+		execute = false,
+		external = true,
+	)
+
+	private fun addShortcut() = addShortcutToShowEncode(
+		context = activity,
 		format = barcode.format.name,
 		content = barcode.textOrHex(),
 	)

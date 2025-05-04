@@ -20,6 +20,7 @@ import de.markusfisch.android.binaryeye.fragment.DecodeFragment
 import de.markusfisch.android.binaryeye.fragment.EncodeFragment
 import de.markusfisch.android.binaryeye.fragment.HistoryFragment
 import de.markusfisch.android.binaryeye.fragment.PreferencesFragment
+import de.markusfisch.android.binaryeye.net.Deeplink
 import de.markusfisch.android.binaryeye.net.isEncodeDeeplink
 import de.markusfisch.android.binaryeye.view.colorSystemAndToolBars
 import de.markusfisch.android.binaryeye.view.initBars
@@ -84,12 +85,11 @@ class MainActivity : AppCompatActivity() {
 				intent.hasExtra(HISTORY) -> HistoryFragment()
 
 				intent.dataString?.let(::isEncodeDeeplink) == true -> {
-					val uri = Uri.parse(intent.dataString)
+					val deeplink = Deeplink.createFromDataString(intent.dataString!!)
 					EncodeFragment.newInstance(
-						content = uri.getQueryParameter("content"),
-						format = uri.getQueryParameter("format")?.uppercase(),
-						execute = uri.getQueryParameter("execute")
-							.let { it == "" || it.toBoolean() }
+						content = deeplink.content,
+						format = deeplink.format,
+						execute = deeplink.execute,
 					)
 				}
 
